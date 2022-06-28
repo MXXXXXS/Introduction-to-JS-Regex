@@ -10,6 +10,8 @@
 
 将 `单词字符`, `数字字符` 这些概念用符号表示，这些符号就是正则表达式
 
+正则表达式是一种语言, 专用于模式匹配领域的语言([DSL](https://en.wikipedia.org/wiki/Domain-specific_language), Domain-specific language)
+
 ## 为什么叫“JS 正则表达式的介绍”, 为什么要加上“JS”
 
 正则表达式是为了解决模式匹配这个问题产生的一种方法
@@ -214,7 +216,73 @@
 
 ### 位置
 
-TODO
+字符之间的间隔被称为"位置", 有一些正则符号可以用来代表位置, 用来辅助匹配
+
+#### 行首, 行尾
+
+比如
+
+```
+"22.33"
+```
+
+要匹配小数点前面的部分, 可以用
+
+```
+/^\d*/
+```
+
+来匹配, 其中`^`代表了行首的位置
+
+要匹配小数点后面的部分, 可以用
+
+```
+/\d*$/
+```
+
+来匹配, 其中`$`代表了行末的位置
+
+#### 单词边界
+
+`单词字符`与`非单词字符`(比如标点符号)之间的间隔用`\b`表示
+
+比如要统一日期的表示, 将`2022.6.28`, `2022/6/28`都统一成`2022-6-28`
+
+```
+'2022.6.28'.replace(/\b/g, '-')
+'2022/6/28'.replace(/\b/g, '-')
+```
+
+#### Lookahead and lookbehind, Positive and Negative 
+
+|          | Lookahead  | lookbehind |
+| -------- | ----------|---------- |
+| Positive | (?=p) | (?<=p) |
+| Negative | (?!p) | (?<!p) |
+
+其中`p`代表一个模式
+
+"Positive Lookahead"指的是匹配`p`前面的位置,  "Positive lookbehind"指的是匹配`p`后面的位置
+
+"Negative Lookahead"指的是不匹配`p`前面的位置,  "Negative lookbehind"指的是不匹配`p`后面的位置
+
+举例
+
+```
+/Task\d (?=(done))/g
+```
+
+会匹配完成的Task(后面跟着"done")
+
+![image-20220628221120638](imgs/image-20220628221120638.png)
+
+要匹配没有完成的项, 使用
+
+```
+/Task\d (?!(done))/g
+```
+
+![image-20220628221352258](imgs/image-20220628221352258.png)
 
 ## 表达式应用
 
@@ -232,9 +300,15 @@ TODO
 
 
 
-### 正则表达式的定义
+## 
+
+
+
+## 扩展阅读
 
 这是一定没人会仔细看的一节, 放最后, 供感兴趣的读者参考
+
+### 正则表达式的定义
 
 摘自: [Introduction to the Theory of Computation](https://www.amazon.com/Introduction-Theory-Computation-Michael-Sipser/dp/113318779X)
 
@@ -272,3 +346,13 @@ JS正则表达按照定义来看, 1-6条可以分别对应
 什么是**alphabet**, P13
 
 ![image-20220628212057818](imgs/image-20220628212057818.png)
+
+### 正则表达式的局限性
+
+![image-20220628214147331](imgs/image-20220628214147331.png)
+
+正则表达式只能处理有限的context-free language
+
+像嵌套匹配的括号就没法用一个正则去描述
+
+是否是context-free language可以用[Pumping lemma](https://en.wikipedia.org/wiki/Pumping_lemma_for_regular_languages)去判断
