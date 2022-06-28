@@ -1,6 +1,6 @@
 # JS 正则表达式的介绍
 
-## 什么是正则表达式
+## 什么是正则表达式(Regular Expressions)
 
 正则表达式是对文本模式的描述
 
@@ -229,3 +229,46 @@ TODO
 ### 文本替换
 
 TODO
+
+
+
+### 正则表达式的定义
+
+这是一定没人会仔细看的一节, 放最后, 供感兴趣的读者参考
+
+摘自: [Introduction to the Theory of Computation](https://www.amazon.com/Introduction-Theory-Computation-Michael-Sipser/dp/113318779X)
+
+豆瓣链接: [计算理论导引(英文版·第3版)](https://book.douban.com/subject/30384859/)
+
+正则表达式R是一种**language**, P64
+
+![image-20220628210619053](imgs/image-20220628210619053.png)
+
+以上表述中的一些符号含义, P44
+
+![image-20220628212703461](imgs/image-20220628212703461.png)
+
+JS正则表达按照定义来看, 1-6条可以分别对应
+
+1. /a/对应"a"
+2. /./对应任意字符
+3. //对应空
+4. /a|b/对应"a"或"b"
+5. /ab/对应"ab"
+6. /a*/对应任意数量的"a"
+
+*注意: 这不是一个自循环的定义*, P65
+
+![image-20220628210822554](imgs/image-20220628210822554.png)
+
+什么是**language**, P14
+
+![image-20220628211555735](imgs/image-20220628211555735.png)
+
+什么是**string**, P14
+
+![image-20220628211809153](imgs/image-20220628211809153.png)
+
+什么是**alphabet**, P13
+
+![image-20220628212057818](imgs/image-20220628212057818.png)
