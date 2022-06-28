@@ -411,3 +411,15 @@ JS正则表达按照定义来看, 1-6条可以分别对应
 像嵌套匹配的括号就没法用一个正则去描述
 
 是否是context-free language可以用[Pumping lemma](https://en.wikipedia.org/wiki/Pumping_lemma_for_regular_languages)去判断
+
+
+
+---
+
+
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+
+[MXXXXXS](https://github.com/MXXXXXS/Introduction-to-JS-Regex)
+
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
