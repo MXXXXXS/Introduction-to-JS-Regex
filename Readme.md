@@ -251,8 +251,8 @@
 比如要统一日期的表示, 将`2022.6.28`, `2022/6/28`都统一成`2022-6-28`
 
 ```
-'2022.6.28'.replace(/\b\W*\b/g, '-')
-'2022/6/28'.replace(/\b\W*\b/g, '-')
+'2022.6.28'.split(/\b\W*\b/).join('-')
+'2022/6/28'.split(/\b\W*\b/).join('-')
 ```
 
 #### Lookahead and lookbehind, Positive and Negative 
