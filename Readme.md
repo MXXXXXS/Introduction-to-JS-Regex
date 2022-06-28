@@ -62,6 +62,8 @@
 
 注意`/\w/`里的`\`代表转义，`/w/`会匹配 `"w"`
 
+`/\W/`是`/\w/`的反面(非单词字符), `/\D/`是`/\d/`的反面(非数字字符)
+
 ### 多者之一
 
 #### 使用`[]`
@@ -249,8 +251,8 @@
 比如要统一日期的表示, 将`2022.6.28`, `2022/6/28`都统一成`2022-6-28`
 
 ```
-'2022.6.28'.replace(/\b/g, '-')
-'2022/6/28'.replace(/\b/g, '-')
+'2022.6.28'.replace(/\b\W*\b/g, '-')
+'2022/6/28'.replace(/\b\W*\b/g, '-')
 ```
 
 #### Lookahead and lookbehind, Positive and Negative 
@@ -284,25 +286,78 @@
 
 ![image-20220628221352258](imgs/image-20220628221352258.png)
 
+### Flags
+
+上面的表达式出现了`g`, 这是一个用于控制表达式行为的标志位
+
+参考[Advanced searching with flags](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#advanced_searching_with_flags)
+
+| Flag | Description                                                  | Corresponding property                                       |
+| :--- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| `d`  | Generate indices for substring matches.                      | [`RegExp.prototype.hasIndices`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/hasIndices) |
+| `g`  | Global search.                                               | [`RegExp.prototype.global`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/global) |
+| `i`  | Case-insensitive search.                                     | [`RegExp.prototype.ignoreCase`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/ignoreCase) |
+| `m`  | Multi-line search.                                           | [`RegExp.prototype.multiline`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/multiline) |
+| `s`  | Allows `.` to match newline characters.                      | [`RegExp.prototype.dotAll`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/dotAll) |
+| `u`  | "unicode"; treat a pattern as a sequence of unicode code points. | [`RegExp.prototype.unicode`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/unicode) |
+| `y`  | Perform a "sticky" search that matches starting at the current position in the target string. See [`sticky`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/sticky). | [`RegExp.prototype.sticky`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/sticky) |
+
 ## 表达式应用
 
 ### 格式校验
 
-TODO
+这个很常见, 校验各种格式
+
+比如Meflow里金额字段的识别
+
+![image-20220628222702335](imgs/image-20220628222702335.png)
+
+以及相关测试用例
+
+![image-20220628222817023](imgs/image-20220628222817023.png)
 
 ### 内容提取
 
-TODO
+![image-20220628223116546](imgs/image-20220628223116546.png)
+
+其中`/\p{sc=Han}/`代表一个汉字, 参考[Unicode property escapes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes)
 
 ### 文本替换
 
-TODO
+[String.prototype.replace()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)非常强大, 这里特指其第二个参数是一个[`replacerFunction`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#specifying_a_function_as_a_parameter)的时候
 
+比如一个获取某篇博客文章的某个评论的api格式类似
 
+```
+Get /api/:blogId/comments/:commentId
+```
 
-## 
+要构造一个请求路径, 比如`blogId: 14, commentId: 2`
 
+```js
+const apiSchema = "/api/:blogId/comments/:commentId"
+const apiArgs = {
+  blogId: 14,
+  commentId: 2,
+}
+apiSchema.replace(/:(\w+)/g, (_, p) => {
+  return apiArgs[p]
+})
+```
 
+会返回
+
+```
+'/api/14/comments/2'
+```
+
+## 资料推荐
+
+[JavaScript正则表达式迷你书（1.1版）.pdf](https://github.com/qdlaoyao/js-regex-mini-book/raw/master/JavaScript正则表达式迷你书（1.1版）.pdf): 一本小册子, 后面有个速查表非常方便
+
+https://javascript.info/regular-expressions: 非常棒的在线教程
+
+https://regexr.com/: 非常好用的正则测试网站
 
 ## 扩展阅读
 
