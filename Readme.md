@@ -378,13 +378,19 @@ https://regexr.com/: 非常好用的正则测试网站
 
 这是一定没人会仔细看的一节, 放最后, 供感兴趣的读者参考
 
-### 正则表达式的定义
+**注意：实用中的正则表达式和计算理论意义下的正则表达式是不同的**
+
+这里介绍一下计算理论中的正则表达式
+
+本节内容修正感谢：[geelaw](https://v2ex.com/t/862803#r_11822415) 
+
+### 定义
 
 摘自: [Introduction to the Theory of Computation](https://www.amazon.com/Introduction-Theory-Computation-Michael-Sipser/dp/113318779X)
 
 豆瓣链接: [计算理论导引(英文版·第3版)](https://book.douban.com/subject/30384859/)
 
-正则表达式R是一种**language**, P64
+正则表达式描述了一个 regular language, P64
 
 ![image-20220628210619053](imgs/image-20220628210619053.png)
 
@@ -395,8 +401,8 @@ https://regexr.com/: 非常好用的正则测试网站
 JS正则表达按照定义来看, 1-6条可以分别对应
 
 1. /a/对应"a"
-2. /./对应任意字符
-3. //对应空
+2. //对应空字符串
+3. /[]/对应不匹配任何字符串
 4. /a|b/对应"a"或"b"
 5. /ab/对应"ab"
 6. /a*/对应任意数量的"a"
@@ -417,15 +423,15 @@ JS正则表达按照定义来看, 1-6条可以分别对应
 
 ![image-20220628212057818](imgs/image-20220628212057818.png)
 
-### 正则表达式的局限性
+### 局限性
 
 ![image-20220628214147331](imgs/image-20220628214147331.png)
 
-正则表达式只能处理有限的context-free language
+正则表达式只能处理一部分的context-free language
 
-像嵌套匹配的括号就没法用一个正则去描述
+像嵌套匹配的括号（balanced brackets）就[没法用一个正则去描述](https://everything2.com/title/pumping+lemma+proof+that+the+balanced+braces+language+is+not+regular)
 
-是否是context-free language可以用[Pumping lemma](https://en.wikipedia.org/wiki/Pumping_lemma_for_regular_languages)去判断
+可以用[Pumping lemma](https://en.wikipedia.org/wiki/Pumping_lemma_for_regular_languages)去证明不是context-free language（不能证明是，但可以证明不是）
 
 
 
